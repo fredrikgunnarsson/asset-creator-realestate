@@ -122,26 +122,21 @@ function generateGUID() {
 
 //=========================
 
-// Add event listener to the "Take photo of asset" button
 const takePhotoButton = document.querySelector('button.take-photo')
 takePhotoButton.addEventListener('click', takePhoto)
 
-// Function to handle taking a photo
 function takePhoto() {
   navigator.mediaDevices
-    .getUserMedia({ video: true })
+    .getUserMedia({ video: { maxWidth: 640, maxHeight: 480 } }) // Set video constraints
     .then(function (stream) {
-      // Display the camera stream in a video element
       const video = document.createElement('video')
       video.srcObject = stream
       document.body.appendChild(video)
       video.play()
 
-      // Provide a way for the user to capture the photo
       const captureButton = document.createElement('button')
       captureButton.textContent = 'Capture'
       captureButton.addEventListener('click', function () {
-        // Freeze the video stream
         const canvas = document.createElement('canvas')
         const context = canvas.getContext('2d')
         canvas.width = video.videoWidth
@@ -149,12 +144,13 @@ function takePhoto() {
         context.drawImage(video, 0, 0, canvas.width, canvas.height)
         video.srcObject.getVideoTracks().forEach((track) => track.stop())
 
-        // Display the captured photo on the screen
         const capturedImage = new Image()
         capturedImage.src = canvas.toDataURL('image/png')
+
+        // Optimize image display (set width/height or use CSS)
+        capturedImage.style.width = '300px' // Example width for display
         document.body.appendChild(capturedImage)
 
-        // Clean up: remove video element
         video.remove()
         captureButton.remove()
       })
