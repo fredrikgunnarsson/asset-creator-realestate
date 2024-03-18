@@ -122,6 +122,43 @@ function generateGUID() {
 
 //=========================
 
+// ... (Rest of your code)
+
+// Add a label for GPS coordinates above the "Select nearby room" button
+const selectRoomSection = document.querySelector('.select-room')
+const coordinatesLabel = document.createElement('p')
+coordinatesLabel.id = 'coordinates-label' // Add an ID for styling or reference
+coordinatesLabel.textContent = 'Fetching GPS coordinates...' // Initial text
+selectRoomSection.insertBefore(
+  coordinatesLabel,
+  selectRoomSection.querySelector('button')
+)
+
+// Function to get GPS coordinates (if available)
+function getCoordinates() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const latitude = position.coords.latitude
+        const longitude = position.coords.longitude
+        coordinatesLabel.textContent = `Coordinates: ${latitude}, ${longitude}`
+      },
+      (error) => {
+        console.error('Error getting GPS coordinates:', error)
+        coordinatesLabel.textContent = 'Unable to retrieve GPS coordinates.'
+      }
+    )
+  } else {
+    coordinatesLabel.textContent =
+      'Geolocation is not supported by this browser.'
+  }
+}
+
+// Retrieve GPS coordinates initially
+getCoordinates()
+
+//=========================
+
 const takePhotoButton = document.querySelector('button.take-photo')
 takePhotoButton.addEventListener('click', takePhoto)
 
