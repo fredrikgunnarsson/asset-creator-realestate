@@ -1,4 +1,4 @@
-const https = require('https')
+import https from 'https'
 
 const ip = async (req, res) => {
   const url = req.query.url
