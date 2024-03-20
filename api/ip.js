@@ -1,4 +1,6 @@
-const ip = (req, res) => {
+const https = require('https')
+
+const ip = async (req, res) => {
   const url = req.query.url
 
   if (!url) {
@@ -6,6 +8,10 @@ const ip = (req, res) => {
     return
   }
 
-  res.status(200).send(`The provided URL is: ${url}`)
+  const response = await https.get(url)
+
+  response.pipe(res)
+
+  // res.status(200).send(`The provided URL is: ${url}`)
 }
 export default ip
