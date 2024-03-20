@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^5.1.6"
+  },
+  "dependencies": {
+    "vercel": "^33.6.1"
   }
 }

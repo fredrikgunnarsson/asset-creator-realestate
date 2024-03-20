@@ -1,4 +1,5 @@
 const ip = (req, res) => {
-  res.status(200).json({ request: req, response: res })
+  console.log(req)
+  res.status(200).json({ message: process.env })
 }
 export default ip
