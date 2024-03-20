@@ -1,5 +1,11 @@
 const ip = (req, res) => {
-  console.log(req)
-  res.status(200).json({ message: req })
+  const url = req.query.url
+
+  if (!url) {
+    res.status(400).send('Missing required parameter: "url"')
+    return
+  }
+
+  res.status(200).send(`The provided URL is: ${url}`)
 }
 export default ip
