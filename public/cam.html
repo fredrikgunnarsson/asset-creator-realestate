@@ -7,7 +7,7 @@
   </head>
   <body>
     <div id="camera">
-      <video id="video" width="400" height="300" autoplay playsinline></video>
+      <video id="video" autoplay playsinline style="max-height: 300px"></video>
       <button id="captureButton">Capture</button>
     </div>
     <canvas id="canvas" width="400" height="300"></canvas>
@@ -25,12 +25,13 @@
         // Access the camera and stream the video
         navigator.mediaDevices
           .getUserMedia({
-            video: { facingMode: 'environment', width: 400, height: 300 },
+            video: { facingMode: 'environment' },
           })
           .then((stream) => {
             video.srcObject = stream
             video.onloadedmetadata = () => {
               video.play()
+              alert(video.clientWidth)
             }
           })
           .catch((error) => {
