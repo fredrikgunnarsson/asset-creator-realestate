@@ -24,7 +24,9 @@
 
         // Access the camera and stream the video
         navigator.mediaDevices
-          .getUserMedia({ video: { facingMode: 'environment' } })
+          .getUserMedia({
+            video: { facingMode: 'environment', width: 400, height: 300 },
+          })
           .then((stream) => {
             video.srcObject = stream
             video.onloadedmetadata = () => {
