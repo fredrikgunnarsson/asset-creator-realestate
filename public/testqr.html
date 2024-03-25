@@ -1,0 +1,37 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Scanner</title>
+  </head>
+  <body>
+    <div id="reader" style="width: 300px; height: 250px"></div>
+
+    <script src="https://unpkg.com/@zxing/library@latest"></script>
+    <script src="https://unpkg.com/html5-qrcode@latest"></script>
+    <script>
+      const qrReader = new Html5Qrcode('reader')
+
+      qrReader.start(
+        { facingMode: 'environment' }, // use back camera
+        {
+          fps: 10, // Optional frame per seconds for qr code scanning
+          qrbox: 200, // Optional if you want bounded box UI
+        },
+        (decodedText) => {
+          // Do something when QR code is decoded
+          alert('Scanned: ' + decodedText)
+        },
+        (errorMessage) => {
+          // Do something when error occurred
+          console.error(errorMessage)
+        }
+      )
+
+      // Stop scanning when the user navigates away from the page
+      window.addEventListener('beforeunload', () => {
+        qrReader.stop()
+      })
+    </script>
+  </body>
+</html>
