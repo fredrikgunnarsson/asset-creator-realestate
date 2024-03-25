@@ -27,7 +27,9 @@
           .getUserMedia({ video: { facingMode: 'environment' } })
           .then((stream) => {
             video.srcObject = stream
-            video.play()
+            video.onloadedmetadata = () => {
+              video.play()
+            }
           })
           .catch((error) => {
             alert('Error accessing the camera: ', error)
