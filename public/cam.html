@@ -31,7 +31,6 @@
             video.srcObject = stream
             video.onloadedmetadata = () => {
               video.play()
-              alert(video.clientWidth)
             }
           })
           .catch((error) => {
