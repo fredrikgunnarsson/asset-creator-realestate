@@ -42,7 +42,7 @@
         captureButton.addEventListener('click', function () {
           canvas
             .getContext('2d')
-            .drawImage(video, 0, 0, canvas.width, canvas.height)
+            .drawImage(video, 0, 0, video.clientWidth, video.clientHeight)
         })
 
         // Save the photo to the backend
