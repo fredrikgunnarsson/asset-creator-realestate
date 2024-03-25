@@ -1,21 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    ...
   </head>
-  <body></body>
-  <script>
-    if (!('BarcodeDetector' in globalThis)) {
-      alert('Barcode Detector is not supported by this browser.')
-    } else {
-      alert('Barcode Detector supported!')
+  <body>
+    <video id="video" width="640" height="480" autoplay></video>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const video = document.querySelector('#video')
 
-      // create new detector
-      const barcodeDetector = new BarcodeDetector({
-        formats: ['code_39', 'codabar', 'ean_13'],
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          const constraints = {
+            video: true,
+            audio: false,
+          }
+          navigator.mediaDevices
+            .getUserMedia(constraints)
+            .then((stream) => (video.srcObject = stream))
+        }
+
+        const barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] })
+
+        // Detect code function
+        const detectCode = () => {
+          // Start detecting codes on to the video element
+          barcodeDetector
+            .detect(video)
+            .then((codes) => {
+              // If no codes exit function
+              if (codes.length === 0) return
+
+              for (const barcode of codes) {
+                // Log the barcode to the console
+                console.log(barcode)
+              }
+            })
+            .catch((err) => {
+              // Log an error if one happens
+              console.error(err)
+            })
+        }
+
+        setInterval(detectCode, 100)
       })
-    }
-  </script>
+    </script>
+  </body>
 </html>
