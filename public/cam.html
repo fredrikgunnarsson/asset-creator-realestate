@@ -24,13 +24,13 @@
 
         // Access the camera and stream the video
         navigator.mediaDevices
-          .getUserMedia({ video: true })
+          .getUserMedia({ video: { facingMode: 'environment' } })
           .then((stream) => {
             video.srcObject = stream
             video.play()
           })
           .catch((error) => {
-            console.error('Error accessing the camera: ', error)
+            alert('Error accessing the camera: ', error)
           })
 
         // Capture and display the photo
