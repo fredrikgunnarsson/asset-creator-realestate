@@ -5,7 +5,7 @@
     <title>QR Scanner</title>
   </head>
   <body>
-    <div id="reader" style="width: 300px; height: 250px"></div>
+    <div id="reader" style="width: 300px"></div>
 
     <script src="https://unpkg.com/@zxing/library@latest"></script>
     <script src="https://unpkg.com/html5-qrcode@latest"></script>
@@ -16,7 +16,7 @@
         { facingMode: 'environment' }, // use back camera
         {
           fps: 2, // Optional frame per seconds for qr code scanning
-          qrbox: 200, // Optional if you want bounded box UI
+          // qrbox: 200, // Optional if you want bounded box UI
         },
         (decodedText) => {
           // Do something when QR code is decoded
