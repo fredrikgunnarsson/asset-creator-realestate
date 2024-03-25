@@ -17,7 +17,8 @@
         {
           fps: 2, // Optional frame per seconds for qr code scanning
           focusMode: 'continuous',
-          // qrbox: 200, // Optional if you want bounded box UI
+          defaultZoomValueIfSupported: 4,
+          qrbox: 200, // Optional if you want bounded box UI
         },
         (decodedText) => {
           // Do something when QR code is decoded
