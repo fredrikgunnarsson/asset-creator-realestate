@@ -19,6 +19,9 @@ document.querySelector('#app').innerHTML = `
     </div>
     <button class="confirm-button">CONFIRM ASSET</button>
   </section>
+  <section>
+  <img src="./qr.png" width="200px" />
+  </section>
 </main>
 `
 
