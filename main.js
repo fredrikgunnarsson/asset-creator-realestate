@@ -10,9 +10,14 @@ document.querySelector('#app').innerHTML = `
   </section>
   <section class="add-asset">
     <h2>Add Asset</h2>
-    <input type="text" placeholder="Search Asset...">
-    <input type="text" placeholder="Asset ID">
-    <textarea placeholder="Description..." rows=3></textarea
+    <input type="text" id="search" placeholder="Search Asset...">
+    <input type="text" id="guid" placeholder="Asset GUID">
+    <input type="text" id="id" placeholder="Asset ID">
+    <textarea placeholder="Description..." rows=3></textarea>
+    <div>
+      <img id="asset-photo" src="./placeholder-image.png" style="width:45%" />
+      <video id="video" autoplay="" playsinline="" style="width:45%"></video>
+    </div>
     <div class="add-asset-actions">
       <button class="take-photo">Take photo of asset</button>
       <button>Scan EAN</button>
@@ -25,7 +30,7 @@ document.querySelector('#app').innerHTML = `
 </main>
 `
 
-const searchInput = document.querySelector('.add-asset input')
+const searchInput = document.querySelector('.add-asset #search')
 searchInput.addEventListener('input', autocomplete)
 
 function handleSuggestionClick(event) {
@@ -167,11 +172,14 @@ takePhotoButton.addEventListener('click', takePhoto)
 
 function takePhoto() {
   navigator.mediaDevices
-    .getUserMedia({ video: { maxWidth: 640, maxHeight: 480 } }) // Set video constraints
+    // .getUserMedia({ video: { maxWidth: 640, maxHeight: 480 } }) // Set video constraints
+    .getUserMedia({
+      video: { facingMode: 'environment', maxWidth: 640, maxHeight: 480 },
+    }) // Set video constraints
     .then(function (stream) {
-      const video = document.createElement('video')
+      const video = document.querySelector('#video')
       video.srcObject = stream
-      document.body.appendChild(video)
+      // document.body.appendChild(video)
       video.play()
 
       const captureButton = document.createElement('button')
@@ -187,14 +195,12 @@ function takePhoto() {
         const capturedImage = new Image()
         capturedImage.src = canvas.toDataURL('image/png')
 
-        // Optimize image display (set width/height or use CSS)
-        capturedImage.style.width = '300px' // Example width for display
-        document.body.appendChild(capturedImage)
+        document.querySelector('#asset-photo').src = capturedImage.src
 
         video.remove()
         captureButton.remove()
       })
-      document.body.appendChild(captureButton)
+      document.querySelector('.add-asset').appendChild(captureButton)
     })
     .catch(function (error) {
       console.error('Error accessing camera:', error)

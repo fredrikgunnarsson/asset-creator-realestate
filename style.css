@@ -72,6 +72,10 @@ button:hover {
   margin-bottom: 10px;
 }
 
+.add-asset img {
+  margin-bottom: 12px;
+}
+
 .asset-info,
 .add-asset-actions {
   display: flex;
